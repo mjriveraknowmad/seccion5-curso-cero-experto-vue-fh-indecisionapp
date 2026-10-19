@@ -1,22 +1,10 @@
 <script setup lang="ts">
 import ChatMessages from '@/components/chat/ChatMessages.vue';
 import MessageBox from '@/components/chat/MessageBox.vue';
-import type { ChatMessage } from '@/interfaces/chat-message.interface';
-import { ref } from 'vue';
 
-const messages = ref<ChatMessage[]>([
-    {
-        id: 1,
-        message: 'Hola, vamos a tomar un café?',
-        itsMine: true
-    },
-    {
-        id: 2,
-        message: 'Sí, claro',
-        itsMine: false,
-        image: 'https://yesno.wtf/assets/yes/13-c3082a998e7758be8e582276f35d1336.gif'
-    }
-]);
+import { useChat } from '@/composables/useChat';
+
+const { messages, sendMessage } = useChat();
 </script>
 
 <template>
@@ -27,6 +15,6 @@ const messages = ref<ChatMessage[]>([
 
     <ChatMessages :messages="messages" />
 
-    <MessageBox />
+    <MessageBox @sendMessage="sendMessage" />
   </div>
 </template>
